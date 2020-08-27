@@ -14,4 +14,8 @@ export default function(){
 
 // To execute with 10 virtual users
 // This is similar to multiple parallel while loops
+// 10 users will hit the endpoint repeatedly for 5 seconds
 // k6 run --vus 10 --duration 5s tests/01-script.js
+// The above can be replaced by setting options at the beginning
+// of the file
+
