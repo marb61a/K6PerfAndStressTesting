@@ -20,4 +20,16 @@ export default function(){
         "Is status 200": (r) => r.status === 200
     });
     
+    // Parse the body JSON to see if it matches the message entered
+    let body = JSON.parse(response.body);
+
+    console.log(`Response body is ${body}`);
+    console.log(`Response body is ${JSON.stringify(body)}`);
+    console.log(`The message is ${body.Message}`);
+
+    // Use check to verify the message
+    check(response, {
+        "Is Message is Success": (r) => JSON.parse(r.body).Message === "Data fetched successfully"
+    });
+    
 }
