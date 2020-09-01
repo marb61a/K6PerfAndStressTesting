@@ -5,7 +5,12 @@ import { Rate, Trend } from 'k6/metrics';
 export let errorRate = new Rate('errors');
 
 // Define Trend
-var getApiTrend = new Trend("TREND_Get_Api_Dutatiom");
+var getApiTrend = new Trend("TREND_Get_Api_Dutation");
+var getApiTrendWaiting = new Trend("TREND_Get_Api_Waiting");
+
+// Testing the Google API, names need to be unique to avoid display confusion
+var googleGetApiTrend = new Trend("TREND_Google_Get_Api_Dutation");
+var googleGetApiTrendWaiting = new Trend("TREND_Google_Get_Api_Waiting");
 
 // Define options
 export let options = {
@@ -39,4 +44,13 @@ export default function(){
     // will not be the case when testing multiple API's in the single test file, this is where
     // TREND will be used to see the individual API as http_req_duration will show cumulative responses
     getApiTrend.add(response.timings.duration);
+    getApiTrendWaiting.add(response.timings.waiting);
+
+    // Testing google as a second API test
+    const googleResponse = http.get("https://www.google.com");
+
+    // http_req_duration will differ as there are 2 API being tested
+    googleGetApiTrend.add(googleResponse.timings.duration);
+    googleGetApiTrendWaiting.add(googleResponse.timings.waiting);
+
 }
